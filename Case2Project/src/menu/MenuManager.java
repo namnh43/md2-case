@@ -8,9 +8,8 @@ import static menu.State.*;
 public class MenuManager {
     private IState current;
     public static final Map<State, ArrayList<String>> menuMap = new HashMap<>();
-    private static MenuManager instance;
 
-    private MenuManager() {
+    public MenuManager() {
         menuMap.put(MENU_ORIGIN,new ArrayList<>(Arrays.asList("Duyệt tin","Đăng nhập")));
         menuMap.put(MENU_READER,new ArrayList<>(Arrays.asList("Chọn tin tức","Trở lại")));
         menuMap.put(MENU_NORMAL,new ArrayList<>(Arrays.asList("Duyệt tin","Đăng ký","Trở lại")));
@@ -22,13 +21,7 @@ public class MenuManager {
         menuMap.put(MENU_ADMIN_DELETE,new ArrayList<>(Arrays.asList("Nhập index tin xóa","Trở lại")));
         menuMap.put(MENU_ADMIN_CREATE_USER,new ArrayList<>(Arrays.asList("Tạo user thường","Tạo user admin","Trở lại")));
         menuMap.put(MENU_ADMIN_DELETE_USER,new ArrayList<>(Arrays.asList("Chọn id user","Trở lại")));
-        current = new MenuOriginState();
-    }
-    public static MenuManager getInstance(){
-        if (instance == null) {
-            instance = new MenuManager();
-        }
-        return instance;
+        current = new MenuOriginState(this);
     }
     public void setCurrent(IState state) {
         this.current = state;

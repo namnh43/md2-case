@@ -3,9 +3,14 @@ package menu;
 import java.util.ArrayList;
 
 import static menu.State.MENU_ADMIN;
-import static menu.State.MENU_READER;
 
 public class MenuAdminState implements IState{
+    MenuManager menuManager;
+
+    public MenuAdminState(MenuManager menuManager) {
+        this.menuManager = menuManager;
+    }
+
     @Override
     public void nextState(int index) {
 

@@ -12,11 +12,17 @@ import static menu.MenuManager.*;
 import static menu.State.MENU_ORIGIN;
 
 public class MenuOriginState implements IState{
+    MenuManager menuManager;
+
+    public MenuOriginState(MenuManager menuManager) {
+        this.menuManager = menuManager;
+    }
+
     @Override
     public void nextState(int index) {
         Scanner scanner = new Scanner(System.in);
         if (index == 0) {
-            getInstance().setCurrent(new MenuReaderState());
+            menuManager.setCurrent(new MenuReaderState(menuManager));
         }else if (index == 1) {
             //Validate user/password
             System.out.println("Enter user name:");
@@ -25,9 +31,9 @@ public class MenuOriginState implements IState{
             String passwd = scanner.next();
             User user = UserManager.getInstance().searchUser(username,passwd);
             if (user != null && (user instanceof Subscriber)) {
-                getInstance().setCurrent(new MenuNormalState());
+                menuManager.setCurrent(new MenuNormalState(menuManager));
             } else if (user != null && (user instanceof Admin)) {
-                getInstance().setCurrent(new MenuAdminState());
+                menuManager.setCurrent(new MenuAdminState(menuManager));
             } else {
                 //do nothing, not change state
             }
