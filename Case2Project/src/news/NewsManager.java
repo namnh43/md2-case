@@ -26,15 +26,20 @@ public class NewsManager {
         }
         return instance;
     }
+
+    public List<News> getNewsList() {
+        return newsList;
+    }
+
     public void display() {
-        String formatH ="%s     %-30s      %s\n";
-        String format = "%d      %-30s          %s\n";
+        String formatH ="%s     %-20s      %-5s      %s\n";
+        String format = "%d      %-20s          %-5b         %s\n";
         System.out.println(ANSI_YELLOW);
         Utils.printFooterDisplay();
         System.out.println("Danh sách tin tức:");
-        System.out.printf(formatH,"index","title","published");
+        System.out.printf(formatH,"index","title","trending","published");
         for (int index = 0; index < newsList.size(); index++) {
-            System.out.printf(format,index,newsList.get(index).getTitle(),newsList.get(index).getPublishing().isStatus());
+            System.out.printf(format,index,newsList.get(index).getTitle(),newsList.get(index).isTrending(),newsList.get(index).getPublishing().isStatus());
         }
         Utils.printFooterDisplay();
         System.out.println(ANSI_RESET);
@@ -46,9 +51,10 @@ public class NewsManager {
         Utils.printFooterDisplay();
         System.out.println("Danh sách tin tức:");
         System.out.printf(formatH,"index","title");
-        for (int index = 0; index < newsList.size(); index++) {
+        for (int index = 0, simple = 0; index < newsList.size(); index++) {
             if (newsList.get(index).getPublishing().isStatus()) {
-                System.out.printf(format,index,newsList.get(index).getTitle());
+                System.out.printf(format,simple,newsList.get(index).getTitle());
+                simple++;
             }
         }
         Utils.printFooterDisplay();
@@ -68,18 +74,44 @@ public class NewsManager {
         Utils.printFooterDisplay();
         System.out.println(ANSI_RESET);
     }
+    public void displaySimple(int index) {
+        List<News> simpleList = newsList.stream().filter(e -> e.getPublishing().isStatus() == true)
+                .toList();
+        String format = "%s %s\n";
+        if (index >= simpleList.size()) {
+            System.err.println("Index not valid");
+            return;
+        }
+        System.out.println(ANSI_YELLOW);
+        Utils.printFooterDisplay();
+        System.out.println("Title: "+simpleList.get(index).getTitle());
+        System.out.println("Date published: "+simpleList.get(index).getPublishing().getDate());
+        System.out.printf(format,"Content:", simpleList.get(index).getContent());
+        Utils.printFooterDisplay();
+        System.out.println(ANSI_RESET);
+    }
     public void createRandom() {
         News news = new News(new NewsStatus(true), "title");
         news.setTitle(Utils.generateRandomString(5));
         newsList.add(news);
     }
     public News delete(int index) {
-//        News
         if (index >= newsList.size()) {
             return null;
         }
         News news = newsList.get(index);
         newsList.remove(index);
         return news;
+    }
+    public News editNews(int index) {
+        if (index >= newsList.size()) {
+            return null;
+        }
+        News news = newsList.get(index);
+        news.reveseStatus();
+        return news;
+    }
+    public void increaseViews(int index) {
+        newsList.get(index).increaseViews();
     }
 }

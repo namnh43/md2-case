@@ -16,6 +16,10 @@ public class NewsStatus {
         return status;
     }
 
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     public Date getDate() {
         return date;
     }

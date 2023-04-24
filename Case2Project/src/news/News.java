@@ -16,6 +16,10 @@ public class News {
 
     }
 
+    public void reveseStatus() {
+        this.publishing.setStatus(!this.publishing.isStatus());
+    }
+
     public NewsStatus getPublishing() {
         return publishing;
     }
@@ -39,6 +43,9 @@ public class News {
     public void setViews(long views) {
         this.views = views;
     }
+    public void increaseViews(){
+        this.views++;
+    }
 
     public boolean isTrending() {
         return trending;
@@ -47,6 +54,7 @@ public class News {
     public void setTrending(boolean trending) {
         this.trending = trending;
     }
+
 
     public void setTitle(String title) {
         this.title = title;

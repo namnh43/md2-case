@@ -38,7 +38,7 @@ public class MenuAdminCreateUserState extends State implements IState{
                 if (created) {
                     System.out.println("Tạo user thành công!");
                 } else {
-                    System.out.println("Không thể tạo user, mời thím thử lại");
+                    System.err.println("Không thể tạo user, mời thím thử lại");
                 }
             }
             case 2 -> {

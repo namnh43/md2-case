@@ -22,6 +22,11 @@ public class MenuAdminDeleteState extends State implements IState{
                 System.out.println("Nhập index:");
                 int i = scanner.nextInt();
                 News news = NewsManager.getInstance().delete(i);
+                if (news != null) {
+                    System.out.println("Xóa thành công!");
+                } else {
+                    System.err.println("Xóa không thành công!");
+                }
             }
             case 1 -> {
                 menuManager.setCurrent(this.getPreviousState());

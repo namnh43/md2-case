@@ -37,7 +37,7 @@ public class MenuOriginState extends State implements IState{
                 menuManager.setCurrentUser(user);
                 System.out.println("******* Welcome "+user.getUsername()+" *******");
             } else {
-                System.out.println("username/password sai, mời thím nhập lại!");
+                System.err.println("username/password sai, mời thím nhập lại!");
                 //do nothing, not change state
             }
         }else {
@@ -48,6 +48,7 @@ public class MenuOriginState extends State implements IState{
 
     @Override
     public void doState() {
+        menuManager.setCurrentUser(null);
         display(MENU_ORIGIN);
     }
 }

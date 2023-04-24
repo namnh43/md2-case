@@ -1,8 +1,13 @@
 package user;
 
+import util.Utils;
+
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+
+import static util.Utils.ANSI_RESET;
+import static util.Utils.ANSI_YELLOW;
 
 public class UserManager {
     private List<User> userList;
@@ -45,12 +50,15 @@ public class UserManager {
         return instance;
     }
     public void display() {
-        String formatH ="%s    %s     %s\n";
-        String format ="%d    %s     %s\n";
-        System.out.printf(formatH,"index","username","role");
+        String formatH ="%s    %-20s     %s\n";
+        String format ="%d        %-20s     %s\n";
+        System.out.println(ANSI_YELLOW);
+        System.out.printf(formatH,"Index","Username","Role");
         for (int index = 0; index < userList.size(); index++) {
             System.out.printf(format,index,userList.get(index).getUsername(),userList.get(index).getClass().getName());
         }
+        Utils.printFooterDisplay();
+        System.out.println(ANSI_RESET);
     }
     public boolean createAdmin(String username, String password) {
         User user = searchUser(username);

@@ -22,7 +22,13 @@ public class MenuReaderState extends State implements IState{
             case 0 -> {
                 System.out.println("Nhập index:");
                 int i = scanner.nextInt();
-                NewsManager.getInstance().display(i);
+                if (menuManager.getCurrentUser() instanceof Admin) {
+                    NewsManager.getInstance().display(i);
+                } else {
+                    NewsManager.getInstance().displaySimple(i);
+                }
+                //increase views
+                NewsManager.getInstance().increaseViews(i);
             }
             case 1 -> {
                 menuManager.setCurrent(this.getPreviousState());
