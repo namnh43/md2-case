@@ -1,6 +1,8 @@
 package menu;
 
 import news.NewsManager;
+import user.Admin;
+import user.Subscriber;
 import util.Utils;
 
 import java.util.ArrayList;
@@ -33,12 +35,11 @@ public class MenuReaderState extends State implements IState{
 
     @Override
     public void doState() {
-        NewsManager.getInstance().display();
-        Utils.printHeaderMenu();
-        ArrayList<String> menu = MenuManager.menuMap.get(MENU_READER);
-        for (int index = 0; index < menu.size(); index++) {
-            System.out.println(index+"."+menu.get(index));
+        if (menuManager.getCurrentUser() instanceof Admin) {
+            NewsManager.getInstance().display();
+        } else {
+            NewsManager.getInstance().displaySimple();
         }
-        Utils.printFooterMenu();
+        display(MENU_READER);
     }
 }
