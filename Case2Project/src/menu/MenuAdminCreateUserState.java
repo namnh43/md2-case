@@ -1,14 +1,15 @@
 package menu;
 
 import user.UserManager;
+import util.Utils;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import static menu.EState.MENU_ADMIN_CREATE_USER;
 
-public class MenuAdminCreateUser extends State implements IState{
-    public MenuAdminCreateUser(MenuManager menuManager, IState previousState) {
+public class MenuAdminCreateUserState extends State implements IState{
+    public MenuAdminCreateUserState(MenuManager menuManager, IState previousState) {
         super(menuManager, previousState);
     }
 
@@ -17,31 +18,34 @@ public class MenuAdminCreateUser extends State implements IState{
         Scanner scanner = new Scanner(System.in);
         switch (index) {
             case 0 -> {
-                System.out.println("Enter username:");
+                System.out.println("Nhập username:");
                 String username = scanner.next();
-                System.out.println("Enter password:");
+                System.out.println("Nhập password:");
                 String password = scanner.next();
                 boolean created = UserManager.getInstance().createSubscriber(username,password);
                 if (created) {
-                    System.out.println("Create user successful!");
+                    System.out.println("Tạo user thành công!");
                 } else {
-                    System.out.println("Cannot create user, please try again!");
+                    System.out.println("Không thể tạo user, mời thím thử lại");
                 }
             }
             case 1 -> {
-                System.out.println("Enter username:");
+                System.out.println("Nhập username:");
                 String username = scanner.next();
-                System.out.println("Enter password:");
+                System.out.println("Nhập password:");
                 String password = scanner.next();
                 boolean created = UserManager.getInstance().createAdmin(username,password);
                 if (created) {
-                    System.out.println("Create user successful!");
+                    System.out.println("Tạo user thành công!");
                 } else {
-                    System.out.println("Cannot create user, please try again!");
+                    System.out.println("Không thể tạo user, mời thím thử lại");
                 }
             }
             case 2 -> {
                 menuManager.setCurrent(this.getPreviousState());
+            }
+            default -> {
+                System.err.println("Nhập sai, mời nhập lại!");
             }
         }
     }
@@ -49,9 +53,11 @@ public class MenuAdminCreateUser extends State implements IState{
     @Override
     public void doState() {
         UserManager.getInstance().display();
+        Utils.printHeaderMenu();
         ArrayList<String> menu = MenuManager.menuMap.get(MENU_ADMIN_CREATE_USER);
         for (int index = 0; index < menu.size(); index++) {
             System.out.println(index+"."+menu.get(index));
         }
+        Utils.printFooterMenu();
     }
 }

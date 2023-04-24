@@ -1,6 +1,7 @@
 package menu;
 
 import user.User;
+import util.Utils;
 
 import java.util.*;
 
@@ -57,11 +58,11 @@ public class MenuManager {
         while (true) {
             try{
                 current.doState();
-                System.out.println("Please enter the selection:");
+                System.out.println("Mời thím nhập lựa chọn:");
                 int index = scanner.nextInt();
                 current.nextState(index);
             } catch (Exception e) {
-                System.err.println("error input");
+                System.err.println("Nhập sai, mời thím nhập lại!");
                 scanner.nextLine();
             }
 

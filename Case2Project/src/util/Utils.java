@@ -1,5 +1,6 @@
 package util;
 
+import javax.crypto.spec.PSource;
 import java.util.Random;
 
 public class Utils {
@@ -21,5 +22,13 @@ public class Utils {
         Random random = new Random();
         long randomNumber = (long) (random.nextDouble() * 9_000_000_000L) + 1_000_000_000L;
         return Long.toString(randomNumber);
+    }
+    public static void printHeaderMenu() {
+        System.out.println("----------------------------------------------------");
+        System.out.println("|                     MENU                         |");
+        System.out.println("----------------------------------------------------");
+    }
+    public static void printFooterMenu() {
+        System.out.println("----------------------------------------------------");
     }
 }
