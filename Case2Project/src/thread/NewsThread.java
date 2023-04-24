@@ -3,6 +3,7 @@ package thread;
 import news.News;
 import news.NewsManager;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -15,13 +16,17 @@ public class NewsThread extends Thread{
     public void run() {
         while (true) {
             List<News> newsList = NewsManager.getInstance().getNewsList();
-            newsList.sort(new Comparator<News>() {
+            Collections.sort(newsList, new Comparator<News>() {
                 @Override
                 public int compare(News o1, News o2) {
-                    return (int) (o1.getViews() - o2.getViews());
+                    if (o1.isTrending() || o2.isTrending()){
+                        return (int) (o1.getViews() - o2.getViews());
+                    } else {
+                        return o1.getPublishing().getDate().compareTo(o2.getPublishing().getDate());
+                    }
+
                 }
-            });
-            System.out.println("thread running");
+            }.reversed());
             //set trending
             newsList.forEach(news -> {
                 if(news.getViews() > 5) {
@@ -29,7 +34,7 @@ public class NewsThread extends Thread{
                 }
             });
             try {
-                sleep(1000);
+                sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
