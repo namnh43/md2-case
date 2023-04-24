@@ -28,8 +28,15 @@ public class UserManager {
                     .orElse(null);
         return find;
     }
+    public User searchUser(String name) {
+        User find = userList.stream()
+                .filter(e -> (e.getUsername().equals(name)))
+                .findFirst()
+                .orElse(null);
+        return find;
+    }
     public void removeUser(String name){
-        userList.removeIf(e->e.getUsername() == name);
+        boolean deleted = userList.removeIf(e->e.getUsername().equals(name));
     }
     public static synchronized UserManager getInstance() {
         if (instance == null) {
@@ -44,5 +51,23 @@ public class UserManager {
         for (int index = 0; index < userList.size(); index++) {
             System.out.printf(format,index,userList.get(index).getUsername(),userList.get(index).getClass().getName());
         }
+    }
+    public boolean createAdmin(String username, String password) {
+        User user = searchUser(username);
+        if (user != null) {
+            return false;
+        }
+        user = new Admin(username, password);
+        userList.add(user);
+        return true;
+    }
+    public boolean createSubscriber(String username, String password) {
+        User user = searchUser(username);
+        if (user != null) {
+            return false;
+        }
+        user = new Subscriber(username, password);
+        userList.add(user);
+        return true;
     }
 }

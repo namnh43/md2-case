@@ -1,8 +1,8 @@
 package menu;
 
 public abstract class State {
-    MenuManager menuManager;
-    IState previousState;
+    protected MenuManager menuManager;
+    protected IState previousState;
 
     public State(MenuManager menuManager, IState previousState) {
         this.menuManager = menuManager;

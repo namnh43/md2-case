@@ -1,5 +1,7 @@
 package menu;
 
+import user.User;
+
 import java.util.*;
 
 import static menu.EState.*;
@@ -8,6 +10,7 @@ import static menu.EState.*;
 public class MenuManager {
     private IState current;
     private IState previous;
+    private User currentUser;
     public static final Map<EState, ArrayList<String>> menuMap = new HashMap<>();
 
     public MenuManager() {
@@ -21,9 +24,19 @@ public class MenuManager {
         menuMap.put(MENU_ADMIN_EDIT,new ArrayList<>(Arrays.asList("Nhập index tin sửa","Trở lại")));
         menuMap.put(MENU_ADMIN_DELETE,new ArrayList<>(Arrays.asList("Nhập index tin xóa","Trở lại")));
         menuMap.put(MENU_ADMIN_CREATE_USER,new ArrayList<>(Arrays.asList("Tạo user thường","Tạo user admin","Trở lại")));
-        menuMap.put(MENU_ADMIN_DELETE_USER,new ArrayList<>(Arrays.asList("Chọn id user","Trở lại")));
+        menuMap.put(MENU_ADMIN_DELETE_USER,new ArrayList<>(Arrays.asList("Nhập username cần xóa","Trở lại")));
         current = new MenuOriginState(this, null);
+        currentUser = null;
     }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
     public void setCurrent(IState state) {
         if (state != this.current) {
             this.previous = this.current;
@@ -42,10 +55,16 @@ public class MenuManager {
     public void display() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            current.doState();
-            System.out.println("Please enter the selection:");
-            int index = scanner.nextInt();
-            current.nextState(index);
+            try{
+                current.doState();
+                System.out.println("Please enter the selection:");
+                int index = scanner.nextInt();
+                current.nextState(index);
+            } catch (Exception e) {
+                System.err.println("error input");
+                scanner.nextLine();
+            }
+
         }
     }
 }
