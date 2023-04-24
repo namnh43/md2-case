@@ -1,5 +1,7 @@
 package news;
 
+import util.Utils;
+
 public class News {
     private NewsStatus publishing;
     private String title;
@@ -10,6 +12,8 @@ public class News {
     public News(NewsStatus publishing, String title) {
         this.publishing = publishing;
         this.title = title;
+        this.content = Utils.generateRandomString(100);
+
     }
 
     public NewsStatus getPublishing() {
@@ -42,5 +46,9 @@ public class News {
 
     public void setTrending(boolean trending) {
         this.trending = trending;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

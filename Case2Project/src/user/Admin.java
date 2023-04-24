@@ -13,4 +13,5 @@ public class Admin extends User {
         User user = new Admin(username, password);
         UserManager.getInstance().addUser(user);
     }
+//    public void createNews()
 }

@@ -1,5 +1,7 @@
 package news;
 
+import util.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,5 +31,29 @@ public class NewsManager {
         for (int index = 0; index < newsList.size(); index++) {
             System.out.printf(format,index,newsList.get(index).getTitle(),newsList.get(index).getPublishing().isStatus());
         }
+    }
+    public void display(int index) {
+        String format = "         %s\n";
+        if (index >= newsList.size()) {
+            System.err.println("Index not valid");
+            return;
+        }
+        System.out.println(newsList.get(index).getTitle());
+        System.out.println(newsList.get(index).getPublishing().getDate());
+        System.out.printf(format, newsList.get(index).getContent());
+    }
+    public void createRandom() {
+        News news = new News(new NewsStatus(true), "title");
+        news.setTitle(Utils.generateRandomString(5));
+        newsList.add(news);
+    }
+    public News delete(int index) {
+//        News
+        if (index >= newsList.size()) {
+            return null;
+        }
+        News news = newsList.get(index);
+        newsList.remove(index);
+        return news;
     }
 }

@@ -37,4 +37,12 @@ public class UserManager {
         }
         return instance;
     }
+    public void display() {
+        String formatH ="%s    %s     %s\n";
+        String format ="%d    %s     %s\n";
+        System.out.printf(formatH,"index","username","role");
+        for (int index = 0; index < userList.size(); index++) {
+            System.out.printf(format,index,userList.get(index).getUsername(),userList.get(index).getClass().getName());
+        }
+    }
 }

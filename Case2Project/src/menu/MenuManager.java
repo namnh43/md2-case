@@ -2,12 +2,13 @@ package menu;
 
 import java.util.*;
 
-import static menu.State.*;
+import static menu.EState.*;
 
 
 public class MenuManager {
     private IState current;
-    public static final Map<State, ArrayList<String>> menuMap = new HashMap<>();
+    private IState previous;
+    public static final Map<EState, ArrayList<String>> menuMap = new HashMap<>();
 
     public MenuManager() {
         menuMap.put(MENU_ORIGIN,new ArrayList<>(Arrays.asList("Duyệt tin","Đăng nhập")));
@@ -21,11 +22,21 @@ public class MenuManager {
         menuMap.put(MENU_ADMIN_DELETE,new ArrayList<>(Arrays.asList("Nhập index tin xóa","Trở lại")));
         menuMap.put(MENU_ADMIN_CREATE_USER,new ArrayList<>(Arrays.asList("Tạo user thường","Tạo user admin","Trở lại")));
         menuMap.put(MENU_ADMIN_DELETE_USER,new ArrayList<>(Arrays.asList("Chọn id user","Trở lại")));
-        current = new MenuOriginState(this);
+        current = new MenuOriginState(this, null);
     }
     public void setCurrent(IState state) {
-        this.current = state;
-//        this.current.doState();
+        if (state != this.current) {
+            this.previous = this.current;
+            this.current = state;
+        }
+    }
+
+    public IState getCurrent() {
+        return current;
+    }
+
+    public IState getPrevious() {
+        return previous;
     }
 
     public void display() {

@@ -1,14 +1,15 @@
 package menu;
 
+import news.News;
 import news.NewsManager;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static menu.EState.MENU_READER;
+import static menu.EState.*;
 
-public class MenuReaderState extends State implements IState{
-    public MenuReaderState(MenuManager menuManager, IState previousState) {
+public class MenuAdminDelete extends State implements IState{
+    public MenuAdminDelete(MenuManager menuManager, IState previousState) {
         super(menuManager, previousState);
     }
 
@@ -17,9 +18,9 @@ public class MenuReaderState extends State implements IState{
         Scanner scanner = new Scanner(System.in);
         switch (index) {
             case 0 -> {
-                System.out.println("Enter index of news:");
+                System.out.println("Enter index:");
                 int i = scanner.nextInt();
-                NewsManager.getInstance().display(i);
+                News news = NewsManager.getInstance().delete(i);
             }
             case 1 -> {
                 menuManager.setCurrent(this.getPreviousState());
@@ -30,7 +31,7 @@ public class MenuReaderState extends State implements IState{
     @Override
     public void doState() {
         NewsManager.getInstance().display();
-        ArrayList<String> menu = MenuManager.menuMap.get(MENU_READER);
+        ArrayList<String> menu = MenuManager.menuMap.get(MENU_ADMIN_DELETE);
         for (int index = 0; index < menu.size(); index++) {
             System.out.println(index+"."+menu.get(index));
         }

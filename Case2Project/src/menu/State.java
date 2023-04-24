@@ -1,16 +1,15 @@
 package menu;
 
-public enum State {
-    MENU_ORIGIN,
-    MENU_READER,
-    MENU_NORMAL,
-    MENU_SUBSCRIBER,
-    MENU_SUBSCRIBER_UPDATED,
-    MENU_ADMIN,
-    MENU_ADMIN_READER,
-    MENU_ADMIN_ADD,
-    MENU_ADMIN_EDIT,
-    MENU_ADMIN_DELETE,
-    MENU_ADMIN_CREATE_USER,
-    MENU_ADMIN_DELETE_USER
+public abstract class State {
+    MenuManager menuManager;
+    IState previousState;
+
+    public State(MenuManager menuManager, IState previousState) {
+        this.menuManager = menuManager;
+        this.previousState = previousState;
+    }
+
+    public IState getPreviousState() {
+        return previousState;
+    }
 }

@@ -12,6 +12,7 @@ public class NewsStatus {
     }
 
     public boolean isStatus() {
+
         return status;
     }
 

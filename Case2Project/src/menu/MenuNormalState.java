@@ -2,13 +2,13 @@ package menu;
 
 import java.util.ArrayList;
 
-import static menu.State.MENU_NORMAL;
+import static menu.EState.MENU_NORMAL;
 
-public class MenuNormalState implements IState{
-    MenuManager menuManager;
+public class MenuNormalState extends State implements IState{
 
-    public MenuNormalState(MenuManager menuManager) {
-        this.menuManager = menuManager;
+
+    public MenuNormalState(MenuManager menuManager, IState previousState) {
+        super(menuManager, previousState);
     }
 
     @Override

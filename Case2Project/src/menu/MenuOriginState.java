@@ -8,21 +8,18 @@ import user.UserManager;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import static menu.MenuManager.*;
-import static menu.State.MENU_ORIGIN;
+import static menu.EState.MENU_ORIGIN;
 
-public class MenuOriginState implements IState{
-    MenuManager menuManager;
-
-    public MenuOriginState(MenuManager menuManager) {
-        this.menuManager = menuManager;
+public class MenuOriginState extends State implements IState{
+    public MenuOriginState(MenuManager menuManager, IState previousState) {
+        super(menuManager, previousState);
     }
 
     @Override
     public void nextState(int index) {
         Scanner scanner = new Scanner(System.in);
         if (index == 0) {
-            menuManager.setCurrent(new MenuReaderState(menuManager));
+            menuManager.setCurrent(new MenuReaderState(menuManager, this));
         }else if (index == 1) {
             //Validate user/password
             System.out.println("Enter user name:");
@@ -31,9 +28,9 @@ public class MenuOriginState implements IState{
             String passwd = scanner.next();
             User user = UserManager.getInstance().searchUser(username,passwd);
             if (user != null && (user instanceof Subscriber)) {
-                menuManager.setCurrent(new MenuNormalState(menuManager));
+                menuManager.setCurrent(new MenuNormalState(menuManager, this));
             } else if (user != null && (user instanceof Admin)) {
-                menuManager.setCurrent(new MenuAdminState(menuManager));
+                menuManager.setCurrent(new MenuAdminState(menuManager, this));
             } else {
                 //do nothing, not change state
             }
