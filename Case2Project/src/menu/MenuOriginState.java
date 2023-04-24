@@ -29,7 +29,11 @@ public class MenuOriginState extends State implements IState{
             String passwd = scanner.next();
             User user = UserManager.getInstance().searchUser(username,passwd);
             if (user != null && (user instanceof Subscriber)) {
-                menuManager.setCurrent(new MenuNormalState(menuManager, this));
+                if (((Subscriber) user).isSubsriber()) {
+                    menuManager.setCurrent(new MenuSubscriberState(menuManager, this));
+                } else {
+                    menuManager.setCurrent(new MenuNormalState(menuManager, this));
+                }
                 menuManager.setCurrentUser(user);
                 System.out.println("******* Welcome "+user.getUsername()+" *******");
             } else if (user != null && (user instanceof Admin)) {

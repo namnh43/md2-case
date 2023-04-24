@@ -18,7 +18,7 @@ public class MenuManager {
         menuMap.put(MENU_ORIGIN,new ArrayList<>(Arrays.asList("Duyệt tin","Đăng nhập")));
         menuMap.put(MENU_READER,new ArrayList<>(Arrays.asList("Chọn tin tức","Trở lại")));
         menuMap.put(MENU_NORMAL,new ArrayList<>(Arrays.asList("Duyệt tin","Đăng ký","Trở lại")));
-        menuMap.put(MENU_SUBSCRIBER,new ArrayList<>(Arrays.asList("Duyệt tin","Đăng ký","Trở lại")));
+        menuMap.put(MENU_SUBSCRIBER,new ArrayList<>(Arrays.asList("Duyệt tin","Cập nhật tin tức","Bỏ đăng ký","Trở lại")));
         menuMap.put(MENU_SUBSCRIBER_UPDATED,new ArrayList<>(Arrays.asList("Danh sách tin cập nhật","Trở lại")));
         menuMap.put(MENU_ADMIN,new ArrayList<>(Arrays.asList("Duyệt tin","Thêm tin","Sửa tin","Xóa tin","Tạo user mới","Xóa user","Trở lại")));
         menuMap.put(MENU_ADMIN_ADD,new ArrayList<>(Arrays.asList("Thêm tin tức","Trở lại")));

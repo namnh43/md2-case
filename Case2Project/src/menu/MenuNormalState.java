@@ -1,5 +1,8 @@
 package menu;
 
+import news.NewsManager;
+import user.Subscriber;
+import user.User;
 import util.Utils;
 
 import java.util.ArrayList;
@@ -16,6 +19,16 @@ public class MenuNormalState extends State implements IState{
     @Override
     public void nextState(int index) {
         switch (index) {
+            case 0 -> {
+                menuManager.setCurrent(new MenuReaderState(menuManager, this));
+            }
+            case 1 -> {
+                User user = menuManager.getCurrentUser();
+                if (user instanceof Subscriber) {
+                    ((Subscriber) user).subscribe(NewsManager.getInstance().getNewsService());
+                    menuManager.setCurrent(new MenuSubscriberState(menuManager, this));
+                }
+            }
             case 2 -> {
                 menuManager.setCurrent(this.getPreviousState());
             }
@@ -27,11 +40,6 @@ public class MenuNormalState extends State implements IState{
 
     @Override
     public void doState() {
-        Utils.printHeaderMenu();
-        ArrayList<String> menu = MenuManager.menuMap.get(MENU_NORMAL);
-        for (int index = 0; index < menu.size(); index++) {
-            System.out.println(index+"."+menu.get(index));
-        }
-        Utils.printFooterMenu();
+        display(MENU_NORMAL);
     }
 }

@@ -1,5 +1,6 @@
 package news;
 
+import user.Subscriber;
 import util.Utils;
 
 import java.util.ArrayList;
@@ -29,6 +30,10 @@ public class NewsManager {
 
     public List<News> getNewsList() {
         return newsList;
+    }
+
+    public NewsService getNewsService() {
+        return newsService;
     }
 
     public void display() {
@@ -90,10 +95,20 @@ public class NewsManager {
         Utils.printFooterDisplay();
         System.out.println(ANSI_RESET);
     }
+    public void displaySimpleNews(News news) {
+        String format = "%s %s\n";
+        Utils.printFooterDisplay();
+        System.out.println("Title: "+news.getTitle());
+        System.out.println("Date published: "+news.getPublishing().getDate());
+        System.out.printf(format,"Content:", news.getContent());
+        Utils.printFooterDisplay();
+    }
     public void createRandom() {
         News news = new News(new NewsStatus(true), "title");
         news.setTitle(Utils.generateRandomString(5));
         newsList.add(news);
+        //notify subscribers
+        newsService.notifyAllObserver(new SubscriberNews(news, SubscriberNews.CHANGED.ADD));
     }
     public News delete(int index) {
         if (index >= newsList.size()) {
@@ -113,5 +128,32 @@ public class NewsManager {
     }
     public void increaseViews(int index) {
         newsList.get(index).increaseViews();
+    }
+    public void displayUpdatedNews(ArrayList<SubscriberNews> newsArrayList) {
+        System.out.println(ANSI_YELLOW);
+        if (newsArrayList.size() == 0) {
+            System.out.println("Không có thông báo tin tức thay đổi");
+            System.out.println(ANSI_RESET);
+            return;
+        }
+        System.out.println("Bảng thông báo tin tức thay đổi");
+        Utils.printFooterDisplay();
+        int index = 0;
+        for (SubscriberNews element: newsArrayList){
+            index ++;
+            switch (element.getChanged()) {
+                case ADD -> {
+                    System.out.println("THAY ĐỔI "+index+": THÊM");
+                }
+                case EDIT -> {
+                    System.out.println("THAY ĐỔI "+index+": SỬA");
+                }
+                case DELETE -> {
+                    System.out.println("THAY ĐỔI "+index+": XÓA");
+                }
+            }
+            displaySimpleNews(element.getNews());
+        }
+        System.out.println(ANSI_RESET);
     }
 }

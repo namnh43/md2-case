@@ -41,11 +41,6 @@ public class MenuAdminEditState extends State implements IState{
     @Override
     public void doState() {
         NewsManager.getInstance().display();
-        Utils.printHeaderMenu();
-        ArrayList<String> menu = MenuManager.menuMap.get(MENU_ADMIN_EDIT);
-        for (int index = 0; index < menu.size(); index++) {
-            System.out.println(index+"."+menu.get(index));
-        }
-        Utils.printFooterMenu();
+        display(MENU_ADMIN_EDIT);
     }
 }

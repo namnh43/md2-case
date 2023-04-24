@@ -22,7 +22,7 @@ public class NewsService implements Subject{
     }
 
     @Override
-    public void notifyAllObserver(News news) {
+    public void notifyAllObserver(SubscriberNews news) {
         for (UserObserver observer: observers) {
             observer.update(news);
         }
