@@ -15,7 +15,8 @@ public class News implements Serializable {
         this.publishing = publishing;
         this.title = title;
         this.content = Utils.generateRandomString(100);
-
+        this.views = 0;
+        this.trending = false;
     }
 
     public void reveseStatus() {
@@ -60,5 +61,16 @@ public class News implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "publishing=" + publishing +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", views=" + views +
+                ", trending=" + trending +
+                '}';
     }
 }

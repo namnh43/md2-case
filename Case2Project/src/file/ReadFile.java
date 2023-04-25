@@ -21,7 +21,7 @@ public class ReadFile<T> {
             objs.close();
         } catch (FileNotFoundException e) {
 //            throw new RuntimeException(e);
-            System.err.println("File input not existed!");
+//            System.err.println("File input not existed!");
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {

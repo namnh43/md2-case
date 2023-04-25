@@ -35,11 +35,11 @@ public class MenuOriginState extends State implements IState{
                     menuManager.setCurrent(new MenuNormalState(menuManager, this));
                 }
                 menuManager.setCurrentUser(user);
-                System.out.println("******* Welcome "+user.getUsername()+" *******");
+                System.out.println("           ******* Welcome "+user.getUsername()+" *******");
             } else if (user != null && (user instanceof Admin)) {
                 menuManager.setCurrent(new MenuAdminState(menuManager, this));
                 menuManager.setCurrentUser(user);
-                System.out.println("******* Welcome "+user.getUsername()+" *******");
+                System.out.println("           ******* Welcome "+user.getUsername()+" *******");
             } else {
                 System.err.println("username/password sai, mời thím nhập lại!");
                 //do nothing, not change state

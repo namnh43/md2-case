@@ -29,7 +29,7 @@ public class NewsThread extends Thread{
             }.reversed());
             //set trending
             newsList.forEach(news -> {
-                if(news.getViews() > 5) {
+                if(news.getViews() >= 5) {
                     news.setTrending(true);
                 }
             });

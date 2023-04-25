@@ -20,7 +20,7 @@ public class WriteFile<T> {
             os.close();
         } catch (FileNotFoundException e) {
 //            throw new RuntimeException(e);
-            System.err.println("File not existed!");
+//            System.err.println("File not existed!");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

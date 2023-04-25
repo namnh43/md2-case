@@ -60,14 +60,14 @@ public class NewsManager {
         writeToFile();
     }
     public void display() {
-        String formatH ="%s     %-20s      %-5s      %s\n";
-        String format = "%d      %-20s          %-5b         %s\n";
+        String formatH ="%s     %-20s      %-5s      %s      %s\n";
+        String format = "%d      %-20s          %-5b         %s            %d\n";
         System.out.println(ANSI_YELLOW);
         Utils.printFooterDisplay();
         System.out.println("Danh sách tin tức:");
-        System.out.printf(formatH,"index","title","trending","published");
+        System.out.printf(formatH,"index","title","trending","published","views");
         for (int index = 0; index < newsList.size(); index++) {
-            System.out.printf(format,index,newsList.get(index).getTitle(),newsList.get(index).isTrending(),newsList.get(index).getPublishing().isStatus());
+            System.out.printf(format,index,newsList.get(index).getTitle(),newsList.get(index).isTrending(),newsList.get(index).getPublishing().isStatus(), newsList.get(index).getViews());
         }
         Utils.printFooterDisplay();
         System.out.println(ANSI_RESET);
@@ -140,6 +140,8 @@ public class NewsManager {
         News news = newsList.get(index);
         newsList.remove(index);
         writeToFile();
+        //notify to subsribers
+        newsService.notifyAllObserver(new SubscriberNews(news, SubscriberNews.CHANGED.DELETE));
         return news;
     }
     public News editNews(int index) {
@@ -149,6 +151,8 @@ public class NewsManager {
         News news = newsList.get(index);
         news.reveseStatus();
         writeToFile();
+        //notify to subsribers
+        newsService.notifyAllObserver(new SubscriberNews(news, SubscriberNews.CHANGED.EDIT));
         return news;
     }
     public void increaseViews(int index) {
