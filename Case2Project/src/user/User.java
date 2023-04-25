@@ -1,6 +1,11 @@
 package user;
 
-public abstract class User {
+import news.Subject;
+
+import java.io.Serializable;
+
+public abstract class User implements Serializable {
+    private static final long serialVersionUID = 1234567L;
     private String username;
     private String password;
 

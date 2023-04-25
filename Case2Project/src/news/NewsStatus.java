@@ -1,8 +1,10 @@
 package news;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class NewsStatus {
+public class NewsStatus implements Serializable {
+    private static final long serialVersionUID = 1234567L;
     private boolean status;
     Date date;
 

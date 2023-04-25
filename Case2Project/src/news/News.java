@@ -2,7 +2,9 @@ package news;
 
 import util.Utils;
 
-public class News {
+import java.io.Serializable;
+
+public class News implements Serializable {
     private NewsStatus publishing;
     private String title;
     private String content;

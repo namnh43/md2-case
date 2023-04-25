@@ -1,8 +1,12 @@
 package news;
 
+import file.ReadFile;
+import file.WriteFile;
 import user.Subscriber;
+import user.User;
 import util.Utils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +18,27 @@ public class NewsManager {
     private static NewsManager instance;
 
     private NewsManager() {
+        //Read from file
+        List<News> list = readFromFile();
+        if (list != null) {
+            newsList = list;
+        } else {
+            newsList = new ArrayList<>();
+            //push some sample news
+            newsList.add(new News(new NewsStatus(true), "Thế giới quanh ta"));
+            newsList.add(new News(new NewsStatus(true), "Tin thời sự 24h qua"));
+            newsList.add(new News(new NewsStatus(true), "Tin bóng đá C1"));
+        }
         newsService = new NewsService();
-        newsList = new ArrayList<>();
-        //push some sample news
-        newsList.add(new News(new NewsStatus(true), "Thế giới quanh ta"));
-        newsList.add(new News(new NewsStatus(true), "Tin thời sự 24h qua"));
-        newsList.add(new News(new NewsStatus(true), "Tin bóng đá C1"));
+    }
+
+    public void writeToFile() {
+        WriteFile<News> newsWrite = new WriteFile<>("news.dat");
+        newsWrite.writeToFile(newsList);
+    }
+    public List<News> readFromFile() {
+        ReadFile<News> newsRead = new ReadFile<>("news.dat");
+        return newsRead.readFromFile();
     }
     public static synchronized NewsManager getInstance(){
         if (instance == null) {
@@ -36,6 +55,10 @@ public class NewsManager {
         return newsService;
     }
 
+    public void addNews(News news){
+        newsList.add(news);
+        writeToFile();
+    }
     public void display() {
         String formatH ="%s     %-20s      %-5s      %s\n";
         String format = "%d      %-20s          %-5b         %s\n";
@@ -106,7 +129,7 @@ public class NewsManager {
     public void createRandom() {
         News news = new News(new NewsStatus(true), "title");
         news.setTitle(Utils.generateRandomString(5));
-        newsList.add(news);
+        addNews(news);
         //notify subscribers
         newsService.notifyAllObserver(new SubscriberNews(news, SubscriberNews.CHANGED.ADD));
     }
@@ -116,6 +139,7 @@ public class NewsManager {
         }
         News news = newsList.get(index);
         newsList.remove(index);
+        writeToFile();
         return news;
     }
     public News editNews(int index) {
@@ -124,6 +148,7 @@ public class NewsManager {
         }
         News news = newsList.get(index);
         news.reveseStatus();
+        writeToFile();
         return news;
     }
     public void increaseViews(int index) {

@@ -6,7 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NewsService implements Subject{
-    private List<UserObserver> observers = new ArrayList<>();
+    private List<UserObserver> observers;
+    public NewsService() {
+        observers = new ArrayList<>();
+    }
+
     @Override
     public void attach(UserObserver observer) {
         if (!observers.contains(observer)) {
