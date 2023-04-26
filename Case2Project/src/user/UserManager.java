@@ -79,6 +79,7 @@ public class UserManager {
         System.out.printf(formatH,"Index","Username","Role");
         for (int index = 0; index < userList.size(); index++) {
             System.out.printf(format,index,userList.get(index).getUsername(),userList.get(index).getClass().getName());
+//            System.out.printf(format,index,userList.get(index).getUsername(),"111");
         }
         Utils.printFooterDisplay();
         System.out.println(ANSI_RESET);

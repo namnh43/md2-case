@@ -8,5 +8,15 @@ public class main {
         NewsThread thread = new NewsThread("trending");
         thread.start();
         menuManager.display();
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                // Call some function before the process exits
+                someFunction();
+            }
+        });
+    }
+    public static void someFunction() {
+        // Do some cleanup or shutdown procedure
+        System.out.println("EXIT grateful");
     }
 }

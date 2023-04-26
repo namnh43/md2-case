@@ -60,11 +60,11 @@ public class NewsManager {
         writeToFile();
     }
     public void display() {
-        String formatH ="%s     %-20s      %-5s      %s      %s\n";
-        String format = "%d      %-20s          %-5b         %s            %d\n";
+        String formatH ="%-5s     %-15s      %-10s      %-10s      %-5s\n";
+        String format = "%-5d     %-15s      %-10b      %-10s      %-5d\n";
         System.out.println(ANSI_YELLOW);
-        Utils.printFooterDisplay();
         System.out.println("Danh sách tin tức:");
+        Utils.printFooterDisplay();
         System.out.printf(formatH,"index","title","trending","published","views");
         for (int index = 0; index < newsList.size(); index++) {
             System.out.printf(format,index,newsList.get(index).getTitle(),newsList.get(index).isTrending(),newsList.get(index).getPublishing().isStatus(), newsList.get(index).getViews());
@@ -73,11 +73,11 @@ public class NewsManager {
         System.out.println(ANSI_RESET);
     }
     public void displaySimple() {
-        String formatH ="%s     %-30s\n";
-        String format = "%d      %-30s\n";
+        String formatH ="%-5s     %-30s\n";
+        String format = "%-5d     %-30s\n";
         System.out.println(ANSI_YELLOW);
-        Utils.printFooterDisplay();
         System.out.println("Danh sách tin tức:");
+        Utils.printFooterDisplay();
         System.out.printf(formatH,"index","title");
         for (int index = 0, simple = 0; index < newsList.size(); index++) {
             if (newsList.get(index).getPublishing().isStatus()) {
@@ -96,6 +96,7 @@ public class NewsManager {
         }
         System.out.println(ANSI_YELLOW);
         Utils.printFooterDisplay();
+        System.out.println("<== Nội dung ==>");
         System.out.println("Title: "+newsList.get(index).getTitle());
         System.out.println("Date published: "+newsList.get(index).getPublishing().getDate());
         System.out.printf(format,"Content:", newsList.get(index).getContent());
@@ -112,6 +113,7 @@ public class NewsManager {
         }
         System.out.println(ANSI_YELLOW);
         Utils.printFooterDisplay();
+        System.out.println("<== Nội dung ==>");
         System.out.println("Title: "+simpleList.get(index).getTitle());
         System.out.println("Date published: "+simpleList.get(index).getPublishing().getDate());
         System.out.printf(format,"Content:", simpleList.get(index).getContent());
