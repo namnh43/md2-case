@@ -60,8 +60,8 @@ public class NewsManager {
         writeToFile();
     }
     public void display() {
-        String formatH ="%-5s     %-15s      %-10s      %-10s      %-5s\n";
-        String format = "%-5d     %-15s      %-10b      %-10s      %-5d\n";
+        String formatH ="%-5s     %-20s      %-10s      %-10s      %-5s\n";
+        String format = "%-5d     %-20s      %-10b      %-10s      %-5d\n";
         System.out.println(ANSI_YELLOW);
         System.out.println("Danh sách tin tức:");
         Utils.printFooterDisplay();
